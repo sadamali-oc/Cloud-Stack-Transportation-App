@@ -1,30 +1,35 @@
-import React from 'react';
-import { Text, StyleSheet, Platform } from 'react-native';
-import { ThemedView } from '@/components/ThemedView';
+import { View, Text } from "react-native";
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialCommunityIcons } from "@expo/vector-icons"; // Make sure you have this import
 
-export default function HomeScreen() {
+const WelcomeScreen = () => {
   return (
-    <ThemedView style={styles.container}>
-      {/* Welcome message with platform-specific styling */}
-      <Text style={styles.welcomeText}>Hello Welcome UOM</Text>
-    </ThemedView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            width: "100%",
+            paddingHorizontal: 16,
+            alignItems: "center",
+            marginTop: 32,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingBottom: 24,
+            }}
+          >
+            <MaterialCommunityIcons name="airplane" size={48} color="#12B3A8" />{" "}
+            {/* Ensure icon is properly used */}
+          </View>
+        </View>
+      </View>
+    </SafeAreaView>
   );
-}
+};
 
-// Define styles with platform-specific adjustments
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f8f9fa', // Light background to enhance theme
-  },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Platform.OS === 'ios' ? '#007AFF' : '#6200EE', // Blue for iOS, Purple for Android
-    padding: 10,
-    textAlign: 'center',
-  },
-});
+export default WelcomeScreen;
