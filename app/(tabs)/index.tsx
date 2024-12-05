@@ -1,152 +1,88 @@
-import { View, Text, StatusBar, Pressable } from "react-native";
-import React from "react";
+import Header from "@/components/Header";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StatusBar,
+  ActivityIndicator,
+  Pressable,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MaterialCommunityIcons } from "@expo/vector-icons"; // Make sure you have this import
-import Animated, { FadeInDown } from "react-native-reanimated";
+import { FullWindowOverlay } from "react-native-screens";
 
-const WelcomeScreen = () => {
+const HomeScreen = () => {
+  const [isPending, setPending] = useState(false);
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#192031" }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" />
 
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            width: "100%",
-            paddingHorizontal: 16,
-            alignItems: "center",
-            marginTop: 32,
-          }}
-        >
-          <Animated.View
-            entering={FadeInDown.duration(200).springify()}
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          backgroundColor: "#F5F7FA",
+          position: "relative",
+        }}
+      >
+        {isPending && (
+          <View
             style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              paddingBottom: 24,
+              position: "absolute", // Correct 'absolute' positioning
+              opacity: 0.7, // Adding some transparency
+              width: "100%", // Full width
+              height: "100%", // Full height
+              justifyContent: "center", // Center the ActivityIndicator
+              alignItems: "center", // Center the ActivityIndicator
+              zIndex: 1, // Make sure it's on top of other views
             }}
           >
-            <MaterialCommunityIcons name="airplane" size={48} color="#00A3E0" />
-            <Text
-              style={{
-                color: "#fff",
-                fontSize: 24,
-                lineHeight: 60,
-                paddingVertical: 8,
-              }}
-            >
-              CLOUD
-            </Text>
-
-            <Text
-              style={{
-                color: "#00A3E0",
-                fontSize: 24,
-                lineHeight: 60,
-                paddingVertical: 8,
-                fontStyle: "italic",
-                marginLeft: 5,
-              }}
-            >
-              STACKS
-            </Text>
-          </Animated.View>
-
-          <Animated.View
-            entering={FadeInDown.duration(200).delay(200).springify()}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                fontSize: 40,
-                fontWeight: "500", // Corrected to 500 for medium weight
-                lineHeight: 60,
-                textAlign: "left",
-              }}
-            >
-              Explore the World, One Flight at a Time
-            </Text>
-          </Animated.View>
-
-          <Animated.View
-            entering={FadeInDown.duration(200).delay(400).springify()}
-            style={{ marginTop: 16 }}
-          >
-            <Text
-              style={{
-                color: "#B0B0B0",
-                fontSize: 15,
-                fontWeight: "100",
-                lineHeight: 38,
-                textAlign: "left",
-              }}
-            >
-              Find an easy way to buy airplane tickets with just a few clicks in
-              the application.
-            </Text>
-          </Animated.View>
-
-          <Animated.View
-            entering={FadeInDown.duration(200).delay(600).springify()}
-            style={{
-              height: "25%",
-              width: "100%",
-              justifyContent: "flex-start",
-              paddingTop: 8,
-            }}
-          >
-            <Pressable
-              style={{
-                backgroundColor: "#00A3E0",
-                borderRadius: 12,
-                justifyContent: "center",
-                alignItems: "center",
-                paddingVertical: 10,
-                paddingHorizontal: 20,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#fff",
-                  fontWeight: "bold",
-                }}
-              >
-                Discover
-              </Text>
-            </Pressable>
-
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                marginTop: 20,
+                backgroundColor: "#000000", // Background color
+                opacity: 0.5, // Corrected opacity (50 was incorrect; must be between 0 and 1)
+                height: "100%", // Percentage value should be a string
+                width: "100%", // Similarly, percentage value for width
+                justifyContent: "center", // Proper alignment property
+                alignItems: "center", // Proper alignment property
               }}
             >
-              <Text
+              <View
                 style={{
-                  color: "#B0B0B0",
-                  fontWeight: "500", // Changed to numeric value 500
+                  position: "absolute",
                 }}
               >
-                Don't have an account?
-              </Text>
-
-              <Text
-                style={{
-                  color: "#B0B0B0",
-                  fontWeight: "500", // Changed to numeric value 500
-                  marginLeft: 5,
-                }}
-              >
-                Register
-              </Text>
+                <ActivityIndicator
+                  size="large"
+                  color="#fff"
+                  style={{
+                    paddingTop: 20,
+                  }}
+                />
+              </View>
             </View>
-          </Animated.View>
+            {/* Loading indicator */}
+          </View>
+        )}
+
+        <View
+          style={{
+            height: "25%",
+            width: "100%",
+            justifyContent: "flex-start",
+            paddingTop: 8,
+            backgroundColor: "#192031",
+            borderBottomLeftRadius: 30,
+            borderBottomRightRadius: 30,
+          }}
+        >
+          <Header />
         </View>
+
+        {/* Pressable to toggle pending state */}
       </View>
     </SafeAreaView>
   );
 };
 
-export default WelcomeScreen;
+export default HomeScreen;
