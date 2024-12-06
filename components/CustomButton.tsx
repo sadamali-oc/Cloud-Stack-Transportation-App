@@ -1,5 +1,14 @@
 import * as React from "react";
-import { Pressable, Text, StyleSheet, View, Image, ImageStyle, TextStyle, ViewStyle } from "react-native";
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  ImageStyle,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
 
 type ButtonType = "PRIMARY" | "TERTIARY";
 
@@ -72,8 +81,19 @@ const styles = StyleSheet.create<{
   container_PRIMARY: {
     backgroundColor: "#00A3E0", // Ensure this is a valid string
   },
+
+  container_SECONDARY: {
+    borderColor: "#00A3E0", // Ensure this is a valid string
+    backgroundColor: "none", // No background color for tertiary
+
+    borderWidth: 2,
+  },
   container_TERTIARY: {
     backgroundColor: "transparent", // No background color for tertiary
+  },
+
+  text_SECONDARY:{
+color:'#00A3E0'
   },
   text: {
     color: "white",

@@ -140,6 +140,11 @@ const WelcomeScreen = () => {
                   color: "#B0B0B0",
                   fontWeight: "500", // Changed to numeric value 500
                 }}
+
+                onPress={()=>{
+
+                  router.push("/SignUp/signup") ; 
+                }}
               >
                 Don't have an account?
               </Text>
