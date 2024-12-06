@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
+import { router } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
@@ -90,7 +91,13 @@ export default function LoginPage() {
         {/* Sign Up */}
         <CustomButton
           text="Don't have an account? Create one"
-          onPress={onSignUpPress}
+          onPress={()=>{
+
+            router.push("/SignUp/signup") ; 
+          }}
+        
+        
+
           type="TERTIARY"
         />
       </SafeAreaView>
