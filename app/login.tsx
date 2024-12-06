@@ -1,13 +1,11 @@
-import {
-  View,
-  Image,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
 import React, { useState } from "react";
+import { View, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
+
+const { width } = Dimensions.get("window");
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -21,11 +19,11 @@ export default function LoginPage() {
     console.log("Login pressed with:", { username, password });
   };
 
-  const onLoginFaceboook = () => console.warn("onLoginFaceboook");
-  const onLoginGoogle = () => console.warn("onLoginGoogle");
-  const onLoginApple = () => console.warn("onLoginApple");
-  const onForgotPasswordPressed = () => console.warn("Password is forgot");
-  const onSignUpPress = () => console.warn("onSignUpPress");
+  const onLoginFacebook = () => console.warn("Login with Facebook");
+  const onLoginGoogle = () => console.warn("Login with Google");
+  const onLoginApple = () => console.warn("Login with Apple");
+  const onForgotPasswordPressed = () => console.warn("Forgot password pressed");
+  const onSignUpPress = () => console.warn("Sign-up pressed");
 
   return (
     <ScrollView
@@ -33,12 +31,9 @@ export default function LoginPage() {
       contentContainerStyle={styles.scrollContent}
     >
       <SafeAreaView style={styles.container}>
-        {/* Top view */}
-        <View style={styles.topView} />
-
         {/* Profile Image */}
         <Image
-          source={require("../assets/images/profilelogo.jpeg")}
+          source={require("../assets/images/login2.png")}
           style={styles.image}
         />
 
@@ -59,29 +54,40 @@ export default function LoginPage() {
 
         {/* Login Button */}
         <CustomButton text="Sign in" onPress={onLoginPressed} />
+
+        {/* Forgot Password */}
         <CustomButton
           text="Forgot password?"
           onPress={onForgotPasswordPressed}
           type="TERTIARY"
         />
+
+        {/* Social Login Buttons */}
         <CustomButton
           text="Sign in with Facebook"
           bgcolor="#E7EAF4"
           fgcolor="#4765A9"
-          onPress={onLoginFaceboook}
+          onPress={onLoginFacebook}
+          icon={<EvilIcons name="sc-facebook" size={24} color="#4765A9" />} // Correctly pass the icon prop
         />
+
         <CustomButton
           text="Sign in with Google"
           bgcolor="#FAE9EA"
           fgcolor="#DD4D44"
           onPress={onLoginGoogle}
+          source={require("../assets/images/google.png")}
+          i
         />
         <CustomButton
           text="Sign in with Apple"
-          onPress={onLoginApple}
           bgcolor="#e3e3e3"
           fgcolor="#363636"
+          onPress={onLoginApple}
+          icon={<EvilIcons name="sc-facebook" size={24} color="#363636" />}
         />
+
+        {/* Sign Up */}
         <CustomButton
           text="Don't have an account? Create one"
           onPress={onSignUpPress}
@@ -95,31 +101,25 @@ export default function LoginPage() {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    backgroundColor: "#192031", // Full page background color
+    backgroundColor: "white",
   },
   scrollContent: {
     flexGrow: 1,
-    justifyContent: "center", // Center content if it doesn't fill the page
+    justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 30,
-
+    paddingVertical: 20,
   },
   container: {
     flex: 1,
     alignItems: "center",
     width: "100%",
   },
-  // topView: {
-  //   height: "15%",
-  //   width: "100%",
-  //   backgroundColor: "#00A3E0",
-  //   borderBottomLeftRadius: 30,
-  //   borderBottomRightRadius: 30,
-  // },
   image: {
-    width: 100,
-    height: 100,
+    width: width * 0.6,
+    height: width * 0.6,
+    resizeMode: "contain",
     marginBottom: 10,
     marginTop: 10,
+    alignSelf: "center",
   },
 });
