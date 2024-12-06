@@ -1,21 +1,28 @@
-import * as React from 'react';
-import { Pressable, Text, StyleSheet } from 'react-native';
+import * as React from "react";
+import { Pressable, Text, StyleSheet, View, Image, ImageStyle, TextStyle, ViewStyle } from "react-native";
 
-// Define the possible 'type' values
-type ButtonType = 'PRIMARY' | 'TERTIARY';
+type ButtonType = "PRIMARY" | "TERTIARY";
 
 interface CustomButtonProps {
   text: string;
   onPress: () => void;
-  type?: ButtonType; // 'type' can be 'PRIMARY' or 'TERTIARY'
-  bgcolor?: string; // Optional background color
-  fgcolor?: string; // Optional text color
+  type?: ButtonType;
+  bgcolor?: string;
+  fgcolor?: string;
+  icon?: React.ReactNode; // Custom React icon
+  source?: any; // External image like Google/Facebook logos
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ text, onPress, type = 'PRIMARY', bgcolor, fgcolor }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({
+  text,
+  onPress,
+  type = "PRIMARY",
+  bgcolor,
+  fgcolor,
+  icon,
+  source,
+}) => {
   return (
-
-    
     <Pressable
       style={[
         styles.container,
@@ -24,6 +31,11 @@ const CustomButton: React.FC<CustomButtonProps> = ({ text, onPress, type = 'PRIM
       ]}
       onPress={onPress}
     >
+      {/* Icon/Image on the Left */}
+      {source && <Image source={source} style={styles.imageIcon} />}
+      {icon && <View style={styles.reactIcon}>{icon}</View>}
+
+      {/* Centered Text */}
       <Text
         style={[
           styles.text,
@@ -37,29 +49,52 @@ const CustomButton: React.FC<CustomButtonProps> = ({ text, onPress, type = 'PRIM
   );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create<{
+  container: ViewStyle;
+  container_PRIMARY: ViewStyle;
+  container_TERTIARY: ViewStyle;
+  text: TextStyle;
+  text_TERTIARY: TextStyle;
+  imageIcon: ImageStyle;
+  reactIcon: ViewStyle;
+}>({
   container: {
-    backgroundColor: '#00A3E0',
-    width: '90%',
-    padding: 15,
-    alignItems: 'center',
-    marginTop: 20,
+    backgroundColor: "#00A3E0", // Ensure this is properly handled as a string
+    width: "90%",
+    paddingVertical: 12,
+    paddingHorizontal: 15,
     borderRadius: 5,
-    marginVertical:3,
+    marginVertical: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    position: "relative",
   },
   container_PRIMARY: {
-    backgroundColor: '#00A3E0',
+    backgroundColor: "#00A3E0", // Ensure this is a valid string
   },
   container_TERTIARY: {
-    backgroundColor: 'transparent', // No background for tertiary button
+    backgroundColor: "transparent", // No background color for tertiary
   },
   text: {
-    color: 'white', // Default text color
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
     fontSize: 15,
+    textAlign: "center",
+    flex: 1, // Allow text to take up remaining space for proper centering
   },
   text_TERTIARY: {
-    color: 'gray', // Set text color to gray for tertiary button
+    color: "gray",
+  },
+  imageIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: "contain",
+    marginRight: 10, // Space between icon and text
+  },
+  reactIcon: {
+    marginRight: 10, // Space between React icon and text
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
