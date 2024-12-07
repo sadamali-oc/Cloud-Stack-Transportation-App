@@ -5,21 +5,31 @@ import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { router } from "expo-router";
-
 import NewPasswordScreen from "../NewPasswordScreen/NewPasswordScreen";
+import { useForm, Controller } from "react-hook-form";
+
 
 const { width } = Dimensions.get("window");
 
 export default function ForgotPassword() {
   const [username, setUsername] = useState("");
 
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  console.log(errors);
+
   const onConfirmPressed = () => {
     console.log("User Confirmation Successfully");
   };
 
-  const onSendPressed = () => {
-    console.log("onResendPress");
-  };
+  // const onSendPressed = () => {
+  //   console.log("onResendPress");
+  // };
 
   return (
     <ScrollView

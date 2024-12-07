@@ -9,7 +9,8 @@ import { router } from "expo-router";
 const { width } = Dimensions.get("window");
 
 export default function NewPasswordScreen() {
-  const [username, setUsername] = useState("");
+  const [code, setCode] = useState("");
+  const [newPassword, setnewPassword] = useState("");
 
   const onConfirmPressed = () => {
     console.log("User Confirmation Successfully");
@@ -19,21 +20,28 @@ export default function NewPasswordScreen() {
     console.log("onResendPress");
   };
 
+  const onSubmitPressed = () => {
+    console.log("onSubmitPress");
+  };
+
+
   return (
     <ScrollView
       style={styles.scrollView}
       contentContainerStyle={styles.scrollContent}
     >
       <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>Reset your Password</Text>
+        <Text style={styles.title}>Rest your password</Text>
+
+        <CustomInput placeholder="Code" value={code} setValue={setCode} />
 
         <CustomInput
-          placeholder="User name"
-          value={username}
-          setValue={setUsername}
+          placeholder="Enter your new Password"
+          value={newPassword}
+          setValue={setnewPassword}
         />
 
-        <CustomButton text="Send" onPress={onSendPressed} />
+        <CustomButton text="Submit" onPress={onSubmitPressed} />
 
         <CustomButton
           text="Back to Sign in"

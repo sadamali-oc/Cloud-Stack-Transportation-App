@@ -5,14 +5,15 @@ import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { router } from "expo-router";
+import { useForm, Controller } from "react-hook-form";
 
 const { width } = Dimensions.get("window");
 
 export default function SignUp() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [passwordRepeat, setPasswordRepeat] = useState("");
 
   const onRegisterPressed = () => {
     console.log("User Registration Successfully");
@@ -27,8 +28,13 @@ export default function SignUp() {
 
   const onPrivacyPress = () => console.warn("on Privacy Pressed");
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-
+  console.log(errors);
 
   return (
     <ScrollView
@@ -39,42 +45,32 @@ export default function SignUp() {
         <Text style={styles.title}>Create an account</Text>
 
         {/* Username Input */}
-        <CustomInput
-          placeholder="Username"
-          value={username}
-          setValue={setUsername}
-        />
+        <CustomInput name="username" control={control} placeholder="Username" />
 
-        <CustomInput
-          placeholder="Email"
-          value={email}
-          setValue={setEmail}
-        />
+        <CustomInput name="email" control={control} placeholder="Email" />
 
         {/* Password Input */}
         <CustomInput
+          name="password"
+          control={control}
           placeholder="Password"
-          value={password}
-          setValue={setPassword}
           secureTextEntry
         />
 
         <CustomInput
+          name="password-repat"
+          control={control}
           placeholder="Repeat Password"
-          value={passwordRepeat}
-          setValue={setPasswordRepeat}
           secureTextEntry
         />
 
-        <CustomButton text="Register" 
-        
-        
-        onPress={()=>{
+        <CustomButton
+          text="Register"
+          onPress={handleSubmit(() => {
             // {onRegisterPressed},
-            router.push("/ConfirmEmailScreen/ConfirmEmailScreen") ; 
-          }}
-          
-          />
+            router.push("/ConfirmEmailScreen/ConfirmEmailScreen");
+          })}
+        />
 
         <Text style={styles.text}>
           By registering, you confirm that you accept our
@@ -88,10 +84,6 @@ export default function SignUp() {
             {""}Privacy Policy
           </Text>{" "}
         </Text>
-
-       
-
-    
       </SafeAreaView>
     </ScrollView>
   );

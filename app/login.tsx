@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  TextInput,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
@@ -7,25 +14,35 @@ import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { router } from "expo-router";
 import ForgotPassword from "./FrogetPassword/ForgotPassword";
 
+import { useForm, Controller } from "react-hook-form";
+
 const { width } = Dimensions.get("window");
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const onLoginPressed = () => {
-    if (!username || !password) {
-      console.warn("Please enter both username and password!");
-      return;
-    }
-    console.log("Login pressed with:", { username, password });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  console.log(errors);
+
+  const onLoginPressed = (data) => {
+    router.push("/Home/Home");
+    console.log(data);
   };
 
   const onLoginFacebook = () => console.warn("Login with Facebook");
   const onLoginGoogle = () => console.warn("Login with Google");
   const onLoginApple = () => console.warn("Login with Apple");
-  const onForgotPasswordPressed = () => console.warn("Forgot password pressed");
-  const onSignUpPress = () => console.warn("Sign-up pressed");
+  const onForgotPasswordPressed = () => {
+    console.warn("Forgot password pressed");
+  };
+  const onSignUpPress = () => {};
+  console.warn("Sign-up pressed");
 
   return (
     <ScrollView
@@ -41,30 +58,58 @@ export default function LoginPage() {
 
         {/* Username Input */}
         <CustomInput
+          name="username"
           placeholder="Username"
-          value={username}
-          setValue={setUsername}
+          control={control}
+          rules={{ required: "Username is required" }}
         />
 
         {/* Password Input */}
         <CustomInput
+          name="password"
+          control={control}
           placeholder="Password"
-          value={password}
-          setValue={setPassword}
           secureTextEntry
+          rules={{
+            required: "Password is required",
+            minLength: {
+              value: 3,
+              message: "Password should be minimum 3 characters long",
+            },
+          }}
         />
 
+        {/* <Controller
+          control={control}
+          name="password"
+          render={({
+            field: {
+              value,
+
+              onChange,
+              onBlur,
+            },
+          }) => (
+            <TextInput
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              placeholder={"password"}
+            />
+          )}
+        /> */}
+
+        {/* <TextInput placeholder="password" /> */}
+
         {/* Login Button */}
-        <CustomButton text="Sign in" onPress={onLoginPressed} />
+        <CustomButton text="Sign in" onPress={handleSubmit(onLoginPressed)} />
 
         {/* Forgot Password */}
         <CustomButton
           text="Forgot password?"
-          onPress={()=>{
-
-            router.push("/FrogetPassword/ForgotPassword") ; 
-          }}
-        
+          onPress={ handleSubmit(() => {
+            router.push("/FrogetPassword/ForgotPassword");
+          })}
           type="TERTIARY"
         />
 
@@ -83,7 +128,6 @@ export default function LoginPage() {
           fgcolor="#DD4D44"
           onPress={onLoginGoogle}
           source={require("../assets/images/google.png")}
-          
         />
         <CustomButton
           text="Sign in with Apple"
@@ -96,13 +140,9 @@ export default function LoginPage() {
         {/* Sign Up */}
         <CustomButton
           text="Don't have an account? Create one"
-          onPress={()=>{
-
-            router.push("/SignUp/signup") ; 
-          }}
-        
-        
-
+          onPress={handleSubmit(() => {
+            router.push("/SignUp/signup");
+    })}
           type="TERTIARY"
         />
       </SafeAreaView>
