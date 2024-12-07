@@ -5,6 +5,7 @@ import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { router } from "expo-router";
+import ForgotPassword from "./FrogetPassword/ForgotPassword";
 
 const { width } = Dimensions.get("window");
 
@@ -59,7 +60,11 @@ export default function LoginPage() {
         {/* Forgot Password */}
         <CustomButton
           text="Forgot password?"
-          onPress={onForgotPasswordPressed}
+          onPress={()=>{
+
+            router.push("/FrogetPassword/ForgotPassword") ; 
+          }}
+        
           type="TERTIARY"
         />
 
@@ -78,7 +83,7 @@ export default function LoginPage() {
           fgcolor="#DD4D44"
           onPress={onLoginGoogle}
           source={require("../assets/images/google.png")}
-          i
+          
         />
         <CustomButton
           text="Sign in with Apple"
