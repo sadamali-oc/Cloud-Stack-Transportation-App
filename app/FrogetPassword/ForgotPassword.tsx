@@ -6,12 +6,12 @@ import CustomButton from "@/components/CustomButton";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { router } from "expo-router";
 
+import NewPasswordScreen from "../NewPasswordScreen/NewPasswordScreen";
+
 const { width } = Dimensions.get("window");
 
 export default function ForgotPassword() {
   const [username, setUsername] = useState("");
-
-
 
   const onConfirmPressed = () => {
     console.log("User Confirmation Successfully");
@@ -20,9 +20,6 @@ export default function ForgotPassword() {
   const onSendPressed = () => {
     console.log("onResendPress");
   };
-
-
-  
 
   return (
     <ScrollView
@@ -38,11 +35,12 @@ export default function ForgotPassword() {
           setValue={setUsername}
         />
 
-        <CustomButton text="Send" onPress={onSendPressed} />
-      
-      
-      
-
+        <CustomButton
+          text="Send"
+          onPress={() => {
+            router.push("/NewPasswordScreen/NewPasswordScreen");
+          }}
+        />
 
         <CustomButton
           text="Back to Sign in"
@@ -79,7 +77,6 @@ const styles = StyleSheet.create({
     margin: 10,
     // marginVertical: 10,
     // marginHorizontal: 20,
-    
   },
 
   text: {
