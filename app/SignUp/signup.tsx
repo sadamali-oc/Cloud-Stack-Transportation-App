@@ -7,6 +7,8 @@ import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { router } from "expo-router";
 import { useForm, Controller } from "react-hook-form";
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const { width } = Dimensions.get("window");
 
 export default function SignUp() {
@@ -31,8 +33,19 @@ export default function SignUp() {
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+
+    // defaultValues:{
+
+    //   username: "Default username"
+    // }
+  });
+
+
+const  pwd = watch('password');
+
 
   console.log(errors);
 
@@ -45,9 +58,39 @@ export default function SignUp() {
         <Text style={styles.title}>Create an account</Text>
 
         {/* Username Input */}
-        <CustomInput name="username" control={control} placeholder="Username" />
+        <CustomInput
+          name="username"
+          control={control}
+          placeholder="Username"
+          rules={{
+            required: "Username is required",
 
-        <CustomInput name="email" control={control} placeholder="Email" />
+            minLength: {
+              value: 3,
+              message: "Username should be at least 3 characters long",
+            },
+
+            maxLength: {
+              value: 24,
+              message: "Username should be max 24 characters long",
+            },
+          }}
+        />
+
+        <CustomInput
+          name="email"
+          control={control}
+          placeholder="Email"
+          rules={{
+
+            required:"Email is invalid",
+            pattern: {
+             
+              value: emailRegex,
+              message: "Email is invalid",
+            },
+          }}
+        />
 
         {/* Password Input */}
         <CustomInput
@@ -55,6 +98,20 @@ export default function SignUp() {
           control={control}
           placeholder="Password"
           secureTextEntry
+
+          rules={{
+            required: "Password is required",
+
+            minLength: {
+              value: 8,
+              message: "Password should be at least 8 characters long",
+            },
+
+            
+          }}
+
+
+
         />
 
         <CustomInput
@@ -62,6 +119,15 @@ export default function SignUp() {
           control={control}
           placeholder="Repeat Password"
           secureTextEntry
+
+
+          rules={{
+          validate: (value) =>
+          
+          value === pwd ||  "Password do not match"  
+
+           
+          }}
         />
 
         <CustomButton

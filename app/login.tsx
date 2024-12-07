@@ -107,9 +107,9 @@ export default function LoginPage() {
         {/* Forgot Password */}
         <CustomButton
           text="Forgot password?"
-          onPress={ handleSubmit(() => {
+          onPress={ () => {
             router.push("/FrogetPassword/ForgotPassword");
-          })}
+          }}
           type="TERTIARY"
         />
 
@@ -140,9 +140,9 @@ export default function LoginPage() {
         {/* Sign Up */}
         <CustomButton
           text="Don't have an account? Create one"
-          onPress={handleSubmit(() => {
+          onPress={() => {
             router.push("/SignUp/signup");
-    })}
+    }}
           type="TERTIARY"
         />
       </SafeAreaView>
