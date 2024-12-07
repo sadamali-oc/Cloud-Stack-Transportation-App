@@ -45,7 +45,7 @@ export default function ForgotPassword() {
 
 
         <CustomButton
-          text="Back to Signomng in"
+          text="Back to Sign in"
           onPress={() => {
             router.push("/login");
           }}
