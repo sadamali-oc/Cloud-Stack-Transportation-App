@@ -6,10 +6,9 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { Colors } from "@/constants/Colors";
-import TabBarBackground from "@/components/ui/TabBarBackground";
-
+import { useColorScheme } from "../../hooks/useColorScheme.web";
+import { Colors } from "../../constants/Colors";
+import BlurTabBarBackground from "../../components/ui/TabBarBackground.ios";
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 

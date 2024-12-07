@@ -39,6 +39,7 @@
     "expo-symbols": "~0.2.0",
     "expo-system-ui": "~4.0.5",
     "expo-web-browser": "~14.0.1",
+    "firebase": "^11.0.2",
     "formic": "^0.0.10",
     "nativewind": "^4.1.23",
     "postcss": "^8.4.49",

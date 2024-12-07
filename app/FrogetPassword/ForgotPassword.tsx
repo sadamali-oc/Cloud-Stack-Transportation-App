@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomInput from "@/components/CustomInput";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "../../components/CustomButton";
+import CustomInput from "../../components/CustomInput";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { router } from "expo-router";
 import NewPasswordScreen from "../NewPasswordScreen/NewPasswordScreen";
