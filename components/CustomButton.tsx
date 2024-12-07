@@ -92,8 +92,8 @@ const styles = StyleSheet.create<{
     backgroundColor: "transparent", // No background color for tertiary
   },
 
-  text_SECONDARY:{
-color:'#00A3E0'
+  text_SECONDARY: {
+    color: "#00A3E0",
   },
   text: {
     color: "white",
@@ -103,7 +103,7 @@ color:'#00A3E0'
     flex: 1, // Allow text to take up remaining space for proper centering
   },
   text_TERTIARY: {
-    color: "gray",
+    color: "#00A3E0",
   },
   imageIcon: {
     width: 24,
