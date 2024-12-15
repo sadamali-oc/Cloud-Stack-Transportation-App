@@ -29,7 +29,7 @@ const Home = () => {
   const [photos, setPhotos] = useState([]);
   const [query, setQuery] = useState("airport"); // Default search query
 
-  const API_KEY = "FE_3EX6YSpCb6v09DdbeCUCpMzjhsOX7W1h37-10maU"; // Replace with your Unsplash API key
+  const API_KEY = ""; // Replace with your Unsplash API key
   const BASE_URL = "https://api.unsplash.com/search/photos";
 
   // Check for user authentication on component mount
@@ -49,7 +49,7 @@ const Home = () => {
             headers: {
               Accept: "application/json",
               app_id: "d7ce6fec", // Replace with your app_id
-              app_key: "23e9e0a2c0d0b146a182284e4c41cac1", // Replace with your app_key
+              app_key: "", // Replace with your app_key
               ResourceVersion: "v4",
             },
           }
@@ -118,6 +118,17 @@ const Home = () => {
         flight.flightName.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : [];
+
+    const renderSelectedFlights = () => {
+      return selectedFlights.map((flightId) => {
+        const flight = flightsData.flights.find((f) => f.id === flightId);
+        return (
+          <View key={flightId} style={styles.selectedFlightItem}>
+            <Text style={styles.selectedFlightText}>{flight.flightName}</Text>
+          </View>
+        );
+      });
+    };
 
   if (loading) {
     return (
@@ -222,13 +233,32 @@ const Home = () => {
         )}
       </ScrollView>
 
-      {tripCount > 0 && (
+      {/* {tripCount > 0 && (
         <View style={styles.selectedFlightIndicator}>
           <Text style={styles.selectedFlightText}>
             Selected Flights: {tripCount}
           </Text>
         </View>
-      )}
+      )} */}
+
+
+      {/* Floating button to show selected flights */}
+     {/* Floating button to show selected flights and count */}
+<TouchableOpacity
+  style={styles.floatingButton}
+  onPress={() => console.log("Selected Flights:", selectedFlights)}
+>
+  <MaterialCommunityIcons name="airplane-takeoff" size={30} color="#fff" />
+  {tripCount > 0 && (
+    <Text style={styles.floatingButtonText}>{tripCount}</Text>
+  )}
+</TouchableOpacity>
+
+
+    
+
+
+
     </SafeAreaView>
   );
 };
@@ -289,16 +319,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     backgroundColor: "#fff",
   },
-  // imageContainer: {
-  //   marginBottom: 16,
-  //   alignItems: "center",
-  // },
-  // image: {
-  //   width: 200,
-  //   height: 200,
-  //   borderRadius: 10,
-  //   resizeMode: "cover",
-  // },
   flightListContainer: {
     flex: 1,
     marginHorizontal: 16,
@@ -308,7 +328,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 16,
     padding: 16,
-    flexDirection: "row",  // Ensures left (image) and right (content) layout
+    flexDirection: "row",  
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#34495E",
@@ -325,7 +345,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 8,
-    resizeMode: "cover", // Ensures the image covers the area without distortion
+    resizeMode: "cover", 
   },
   cardContent: {
     flex: 1,
@@ -370,6 +390,53 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
   },
+
+  floatingButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "#00A3E0",
+    borderRadius: 50,
+    padding: 16,
+    elevation: 5,
+  },
+  selectedFlightsContainer: {
+    position: "absolute",
+    bottom: 100,
+    left: 16,
+    right: 16,
+    backgroundColor: "#192031",
+    padding: 16,
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+  },
+  selectedFlightItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  selectedFlightText: {
+    fontSize: 16,
+    color: "#fff",
+  },
+
+  floatingButtonText: {
+    position: "absolute",
+    top: -5,
+    right: -5,
+    backgroundColor: "#FF5252",
+    color: "#fff",
+    fontSize: 12,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 12,
+    fontWeight: "bold",
+  }
+  
 });
 
 export default Home;
