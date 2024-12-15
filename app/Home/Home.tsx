@@ -15,7 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { router } from "expo-router";
-import { auth } from "../../firebase"; // Adjust the import path for Firebase
+import { auth } from "../../firebase"; 
 
 const Home = () => {
   const [flightsData, setFlightsData] = useState(null);
@@ -23,13 +23,14 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [selectedFlights, setSelectedFlights] = useState([]);
   const [tripCount, setTripCount] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(""); // Holds the search query
+  const [searchQuery, setSearchQuery] = useState(""); 
   const [userEmail, setUserEmail] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [photos, setPhotos] = useState([]);
-  const [query, setQuery] = useState("airport"); // Default search query
+  const [query, setQuery] = useState("airport"); 
 
-  const API_KEY = ""; // Replace with your Unsplash API key
+
+  const API_KEY = ""; 
   const BASE_URL = "https://api.unsplash.com/search/photos";
 
   // Check for user authentication on component mount
@@ -66,7 +67,6 @@ const Home = () => {
     fetchFlights();
   }, []);
 
-  // Fetch images from Pexels API based on search query
   const fetchPhotos = async () => {
     setLoading(true);
     setError(null);
@@ -80,7 +80,7 @@ const Home = () => {
           per_page: 10,
         },
       });
-      setPhotos(response.data.results); // Access photos from Unsplash response
+      setPhotos(response.data.results); 
     } catch (err) {
       setError("Failed to fetch photos. Please try again.");
     } finally {
@@ -90,7 +90,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchPhotos();
-  }, [query]); // Fetch photos when the query changes
+  }, [query]); 
   const handleSignOut = async () => {
     try {
       await auth.signOut();
@@ -119,16 +119,16 @@ const Home = () => {
       )
     : [];
 
-    const renderSelectedFlights = () => {
-      return selectedFlights.map((flightId) => {
-        const flight = flightsData.flights.find((f) => f.id === flightId);
-        return (
-          <View key={flightId} style={styles.selectedFlightItem}>
-            <Text style={styles.selectedFlightText}>{flight.flightName}</Text>
-          </View>
-        );
-      });
-    };
+  const renderSelectedFlights = () => {
+    return selectedFlights.map((flightId) => {
+      const flight = flightsData.flights.find((f) => f.id === flightId);
+      return (
+        <View key={flightId} style={styles.selectedFlightItem}>
+          <Text style={styles.selectedFlightText}>{flight.flightName}</Text>
+        </View>
+      );
+    });
+  };
 
   if (loading) {
     return (
@@ -233,32 +233,19 @@ const Home = () => {
         )}
       </ScrollView>
 
-      {/* {tripCount > 0 && (
-        <View style={styles.selectedFlightIndicator}>
-          <Text style={styles.selectedFlightText}>
-            Selected Flights: {tripCount}
-          </Text>
-        </View>
-      )} */}
-
-
-      {/* Floating button to show selected flights */}
-     {/* Floating button to show selected flights and count */}
-<TouchableOpacity
-  style={styles.floatingButton}
-  onPress={() => console.log("Selected Flights:", selectedFlights)}
->
-  <MaterialCommunityIcons name="airplane-takeoff" size={30} color="#fff" />
-  {tripCount > 0 && (
-    <Text style={styles.floatingButtonText}>{tripCount}</Text>
-  )}
-</TouchableOpacity>
-
-
-    
-
-
-
+      <TouchableOpacity
+        style={styles.floatingButton}
+        onPress={() => console.log("Selected Flights:", selectedFlights)}
+      >
+        <MaterialCommunityIcons
+          name="airplane-takeoff"
+          size={30}
+          color="#fff"
+        />
+        {tripCount > 0 && (
+          <Text style={styles.floatingButtonText}>{tripCount}</Text>
+        )}
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -328,7 +315,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 16,
     padding: 16,
-    flexDirection: "row",  
+    flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#34495E",
@@ -345,7 +332,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 8,
-    resizeMode: "cover", 
+    resizeMode: "cover",
   },
   cardContent: {
     flex: 1,
@@ -419,22 +406,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 8,
   },
-  selectedFlightText: {
-    fontSize: 16,
-    color: "#fff",
-  },
+ 
 
   floatingButtonText: {
     position: "absolute",
-    top: -5,
-    right: -5,
-    backgroundColor: "#FF5252",
-    color: "#fff",
-    fontSize: 12,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 12,
-    fontWeight: "bold",
+    top: -10, 
+    right: -10, 
+    backgroundColor: "#FF5252", 
+    color: "#fff", 
+    fontSize: 18, 
+    paddingHorizontal: 8, 
+    paddingVertical: 4, 
+    borderRadius: 15, 
+    fontWeight: "bold", 
   }
   
 });
