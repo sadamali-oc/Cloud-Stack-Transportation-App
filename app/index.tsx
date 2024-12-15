@@ -88,6 +88,8 @@ const WelcomeScreen = () => {
           entering={FadeInDown.duration(200).delay(600).springify()}
           style={{ alignItems: "center", marginBottom: 20 }}
         >
+          {/* Authorization: "CK3quwhjDzMIEfMt0ns2ZIMgyt1g2mvTFY5sSwfyxL2S3cX4cAsCOyt5", // Replace with your Pexels API key */}
+
           <Pressable
             onPress={() => router.push("/login")}
             style={{
