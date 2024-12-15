@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     marginHorizontal: 16,
     marginBottom: 10,
-    color: "#fff",
+    color: "#black",
     backgroundColor: "#fff",
   },
   flightListContainer: {
